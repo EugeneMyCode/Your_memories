@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -133,12 +134,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MAPBOX_KEY = "pk.eyJ1IjoicHVwYWx1cGEiLCJhIjoiY2wzemtuOHJoMGV6bjNpcXl3ZG5kNGJjYSJ9.pu9Oy8R8zjmE2cfh0dbhTA"
-
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.vk.VKOAuth2',
-    'social_core.backends.linkedin.LinkedinOAuth2',
-    'social_core.backends.instagram.InstagramOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
@@ -161,18 +158,16 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'index'
 
+# Ключ для получения карты
+MAPBOX_KEY = "pk.eyJ1IjoicHVwYWx1cGEiLCJhIjoiY2wzemtuOHJoMGV6bjNpcXl3ZG5kNGJjYSJ9.pu9Oy8R8zjmE2cfh0dbhTA"
 
+# Настройки для аутентификации через Facebook
 SOCIAL_AUTH_FACEBOOK_KEY = "1088816628378504"
 SOCIAL_AUTH_FACEBOOK_SECRET = "13e6fea220e15ff8e0aafa4192ace220"
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_VK_OAUTH2_KEY = '8184969'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'TFqV9gz99F17bMhqGxbY'
-SOCIAL_AUTH_VK_OAUTH2_SCOPE = [
-  'notify',
-  'friends',
-  'email',
-]
-
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, picture.type(large), link'
+}
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ('name', 'name'),
     ('email', 'email'),
@@ -180,9 +175,13 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ('link', 'profile_url'),
 ]
 
-SOCIAL_AUTH_VK_EXTRA_DATA = [
-    ('name', 'name'),
-    ('email', 'email'),
-    ('picture', 'picture'),
-    ('link', 'profile_url'),
+# Настройки для аутентификации через ВК
+SOCIAL_AUTH_VK_OAUTH2_KEY = '8184969'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'TFqV9gz99F17bMhqGxbY'
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = [
+    'photos',
+    'notify',
+    'friends',
+    'email',
 ]
+
