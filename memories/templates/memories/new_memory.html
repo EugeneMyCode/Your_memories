@@ -1,0 +1,17 @@
+{% load bootstrap5 %}
+{% load mapbox_location_field_tags %} 
+{% location_field_includes %}
+{% include_jquery %}
+
+{% block content %}
+
+<form action="{% url 'memories:new_memory' %}" method="post" class="form">
+{% csrf_token %} 
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+  {% endbuttons %}
+</form> 
+{{ form.media }}
+
+{% endblock content %}

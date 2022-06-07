@@ -1,0 +1,34 @@
+{% extends 'memories/base.html' %}
+
+{% block page_header %}
+  <div class='jumbotron'>
+    <h1 class="display-3">Оставляйте воспоминания</h1>
+
+    <p class="lead">Здесь вы можете сохранять свои воспоминания!</p>
+
+  </div>
+{% endblock page_header %}
+
+{% if user.is_authenticated %}
+{% block content %}
+  <h2>Воспоминания:</h2>
+  <ul>
+    {% for memory in memories %}
+      <li><h3>
+          <a href="{% url 'memories:memory' memory.id %}">{{ memory }}</a>
+      </h3></li>
+    {% empty %}
+      {% if user.is_authenticated %}
+        <li><h3>У вас нет ни одного воспоминания</h3>></li>
+      {% else %}
+        <li><h3>Вы сможете их добавить после <a href="{% url 'memories:login' %}">входа</a> ^^^</h3>></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+  <h3><a href="{% url 'memories:new_memory' %}">Добавить воспоминание:</a></h3>
+  {% endif %}
+
+{% endblock content %}
+{% endif %}

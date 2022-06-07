@@ -1,0 +1,15 @@
+{% extends 'memories/auth_base.html' %}
+{% block title %} Sign in {% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+        <button class="btn btn-danger  mb-2">
+            <a href="{% url 'social:begin' 'vk-oauth2' %}">Вход через ВК</a>
+        </button>
+        <button class="btn btn-primary mb-2">
+            <a href="{% url 'social:begin' 'facebook' %}">Вход через Facebook</a>
+        </button>
+    </div>
+</div>
+</div>
+{% endblock %}
