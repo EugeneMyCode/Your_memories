@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'sslserver',
     'social_django',
+    'pytest',
 ]
 
 MIDDLEWARE = [
